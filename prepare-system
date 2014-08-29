@@ -2,17 +2,22 @@
 
 fdisk -l
 sgdisk --zap-all /dev/sda
-cgdisk /dev/sda
-mkfs.ext4 /dev/sda1
-mkfs.ext4 /dev/sda2
-mkfs.btrfs /dev/sda3
-mount /dev/sda2 /mnt
-mkdir /mnt/{boot,home}
-mount /dev/sda1 /mnt/boot
-mount /dev/sda3 /mnt/home
+cgdisk           /dev/sda
+mkfs.ext4        /dev/sda1
+mkfs.ext4        /dev/sda2
+mkswap           /dev/sda3
+mkfs.btrfs       /dev/sda4
+
+mount            /dev/sda2 /mnt
+mkdir                      /mnt/boot
+mount            /dev/sda1 /mnt/boot
+mkdir                      /mnt/home
+mount            /dev/sda4 /mnt/home
+swapon           /dev/sda3
+
 cat mirrorlist > /etc/mirrorlist
-pacstrap -i /mnt base base-devel
-genfstab -U -p /mnt >> /mnt/etc/fstab
-cat /mnt/etc/fstab
-arch-chroot /mnt /bin/bash
+pacstrap -i                /mnt base base-devel vim
+genfstab -U -p /mnt >>     /mnt/etc/fstab
+vim                        /mnt/etc/fstab
+arch-chroot    /mnt /bin/bash
 
