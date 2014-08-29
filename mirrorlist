@@ -1,0 +1,48 @@
+#
+# Arch Linux repository mirrorlist
+# Generated on 2014-08-26
+#
+
+# Norway
+Server = http://mirror.archlinux.no/$repo/os/$arch
+Server = http://archlinux.uib.no/$repo/os/$arch
+Server = http://archlinux.neuf.no/$repo/os/$arch
+
+# Sweden
+Server = http://ftp.availo.se/archlinux/$repo/os/$arch
+Server = http://ftp.df.lth.se/pub/archlinux/$repo/os/$arch
+Server = http://ftp.lysator.liu.se/pub/archlinux/$repo/os/$arch
+Server = http://ftp.portlane.com/pub/os/linux/archlinux/$repo/os/$arch
+
+# Denmark
+Server = http://mirrors.dotsrc.org/archlinux/$repo/os/$arch
+Server = http://mirror.one.com/archlinux/$repo/os/$arch
+
+# Germany
+Server = http://mirror.23media.de/archlinux/$repo/os/$arch
+Server = http://archlinux.limun.org/$repo/os/$arch
+Server = http://artfiles.org/archlinux.org/$repo/os/$arch
+Server = http://archlinux.cyborg-connect.de/$repo/os/$arch
+Server = http://ftp.fau.de/archlinux/$repo/os/$arch
+Server = http://mirror.fluxent.de/archlinux/$repo/os/$arch
+Server = http://mirror.gnomus.de/$repo/os/$arch
+Server = http://ftp5.gwdg.de/pub/linux/archlinux/$repo/os/$arch
+Server = http://mirror.hactar.bz/$repo/os/$arch
+Server = http://ftp.hawo.stw.uni-erlangen.de/archlinux/$repo/os/$arch
+Server = http://ftp.hosteurope.de/mirror/ftp.archlinux.org/$repo/os/$arch
+Server = http://ftp-stud.hs-esslingen.de/pub/Mirrors/archlinux/$repo/os/$arch
+Server = http://mirror.js-webcoding.de/pub/archlinux/$repo/os/$arch
+Server = http://mirror.k42.ch/archlinux/$repo/os/$arch
+Server = http://mirror.de.leaseweb.net/archlinux/$repo/os/$arch
+Server = http://mirror.michael-eckert.net/archlinux/$repo/os/$arch
+Server = http://mirrors.n-ix.net/archlinux/$repo/os/$arch
+Server = http://mirror.netcologne.de/archlinux/$repo/os/$arch
+Server = http://ftp.halifax.rwth-aachen.de/archlinux/$repo/os/$arch
+Server = http://linux.rz.rub.de/archlinux/$repo/os/$arch
+Server = http://mirror.selfnet.de/archlinux/$repo/os/$arch
+Server = http://ftp.spline.inf.fu-berlin.de/mirrors/archlinux/$repo/os/$arch
+Server = http://ftp.tu-chemnitz.de/pub/linux/archlinux/$repo/os/$arch
+Server = http://ftp.tuxdroid.org/archlinux/$repo/os/$arch
+Server = http://ftp.uni-bayreuth.de/linux/archlinux/$repo/os/$arch
+Server = http://ftp.uni-kl.de/pub/linux/archlinux/$repo/os/$arch
+Server = http://mirror.unitedcolo.de/archlinux/$repo/os/$arch
