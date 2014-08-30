@@ -1,6 +1,0 @@
-#!/usr/bin/sh
-
-HOME=/home/s
-CFG=/home/s/.config
-
-cd $CFG

@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+echo \#!/usr/bin/sh\nexec $1 > $HOME/.xinitrc
+chmod +x $HOME/.xinitrc
+
+ssh-keygen -t dsa
+
+git clone git@github.com:tusj/awesome-config.git $HOME/.config/awesome
+cd $HOME/.config/awesome
+git submodule init
+git submodule update
+cd
+
+git clone git@github.com:tusj/vim-config.git $HOME/.vim
+cd $HOME/.vim
+git submodule init
+git submodule update
+cd

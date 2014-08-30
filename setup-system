@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/sh
 HOSTNAME=bbld
 ZONE=Europe/Oslo
 USER=s
@@ -6,81 +6,42 @@ HOME=/home/$USER
 CFG=$HOME/.config
 SHELL=/user/bin/fish
 
+# Locale
 echo en_US.UTF-8 UTF-8\nde_DE.UTF-8 UTF-8\nfr_FR.UTF-8\nnb_NO.UTF-8 UTF-8 >> /etc/locale.gen
 locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
+
+# Time
 ln -s /usr/share/zoneinfo/$ZONE /etc/localtime
 hwclock --systohc --localtime
+
+# Hostname
 echo $HOSTNAME > /etc/hostname
 
 mkinitcpio -p linux
 
 passwd
 
-
 pacman -Syu --noconfirm
+pacman -S fish --noconfirm
+
+# Make user and give administrator privileges to group wheel
+useradd -g users -G wheel -m -s /usr/bin/fish
+sed -i '/# %wheel ALL=(ALL) ALL/c\%wheel ALL=(ALL) ALL' /etc/sudoers
+
+# Setup bootloader
 pacman -S gptfdisk vim syslinux --noconfirm
 syslinux-install_update -iam
-vim /boot/syslinux/syslinux.cfg
+sed -i 's|APPEND root=/dev/sda3 rw|APPEND root=/dev/sda2' /boot/syslinux/syslinux.cfg
 
 # Yaourt
-pacman -S wget --noconfirm
-PKG_QRY=package-query
-AUR=http://aur.archlinux.org/packages
-wget $AUR/pa/$PKG_QRY/$PKG_QRY.tar.gz $AUR/ya/yaourt/yaourt.tar.gz
-tar xaf package-query.tar.gz
-tar xaf yaourt.tar.gz
-
-cd package-query
-makepkg -s
-pacman -U package-query*.xz
-cd
-cd yaourt
-makepkg -s
-pacman -U yaourt*.xz
-cd
-
-rm -r package-query* yaourt*
-
-
+su s -c ./install-yaourt
 
 # Install packages
+su s -c ./install-packages
 
-WEB=(chromium firefox chromium-pepper-flash icedtea-web-java7)
-CLI=(setxkbmap trash-cli ack fish inotify-tools vim xbindkeys xclip python openssh)
-DESKTOP=(awesome slim-themes slim slimlock synapse)
-GRAPHIC=(networkmanager network-manager-applet vlc terminology sbxkb gksu redshift xorg unclutter octopi zeitgeist gnome-activity-journal gnome-system-monitor trayclock)
-AUDIO=(mpd mpdscribble pulseaudio mpc pavucontrol)
-LOGINMGR=(slim)
-IMG=(pinta gimp inkscape pinta)
-PRG=(cloc git ack meld vim eclipse mercurial go dart dartium-bin)
-SYS=(ttf-dejavu ttf-droid ttf-ubuntu-font-family)
-GENERAL=(gparted geary deluge dropbox skype hexchat virtualbox)
-UTIL=(pcmanfm tumbler poppler-glib)
-WIFI=(broadcom-wl)
-
-NO_DUPES=`echo $WEB $CLI $DESKTOP $LOGINMGR $GRAPHIC $AUDIO $IMG $PRG $SYS $GENERAL | tr ' ' \n | sort -u | tr \n ' '`
-
-INSTALL=yaourt --noconfirm -S
-exec $INSTALL $NO_DUPES
-
-useradd -mg users -G wheel -s $SHELL $USER
-
-XINITRC=$HOME/.xinitrc
-echo \#!/usr/bin/sh\nexec $1 > $XINITRC
-chmod +x $XINITRC
-
-git clone https://github.com/tusj/awesome-config.git $CFG/awesome
-cd $CFG/awesome
-git submodule init
-git submodule update
-cd
-
-git clone https://github.com/tusj/vim-config.git $HOME/.vim
-cd $HOME/.vim
-git submodule init
-git submodule update
-cd
+# Setup user
+su s -c ./setup-user
 
 systemctl enable $LOGINMGR
 systemctl enable ntpd

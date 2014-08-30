@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+AUDIO="mpd mpdscribble pulseaudio mpc pavucontrol"
+CLI="xorg-setxkbmap trash-cli ack fish inotify-tools vim xbindkeys xclip python openssh"
+DESKTOP_ENVIRONMENT="awesome slim-themes slim slimlock synapse unclutter"
+FILEMANAGER="pcmanfm tumbler poppler-glib"
+GENERAL="gparted geary deluge skype hexchat virtualbox"
+GRAPHIC="networkmanager network-manager-applet vlc terminology sbxkb gksu redshift xorg zeitgeist gnome-activity-journal gnome-system-monitor trayclock"
+IMG="pinta gimp inkscape pinta"
+PRG="cloc git ack meld vim eclipse mercurial go dart dartium-bin"
+SYS="ttf-dejavu ttf-droid ttf-ubuntu-font-family"
+WEB="chromium firefox chromium-pepper-flash icedtea-web"
+WIFI="broadcom-wl"
+
+NO_DUPES=`echo $AUDIO $CLI $DESKTOP_ENVIRONMENT $FILEMANAGER $GENERAL $GRAPHIC $IMG $PRG $SYS $WEB $WIFI | tr ' ' \n | sort -u | tr \n ' '`
+
+yaourt -s --noconfirm $NO_DUPES --needed
+

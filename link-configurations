@@ -1,0 +1,47 @@
+#!/usr/bin/fish
+
+set -l SYNC /home/s/Dropbox/dotfiles
+
+function mkLink
+	echo "mkLink		$argv[1..-1]"
+	# cd $argv[-1]
+	# ln -s $argv[1]
+end
+
+
+function mkDir
+	echo "mkDir		$argv[1..-1]"
+	command mkdir -p $argv
+end
+
+function linkConfigurations
+	builtin cd $argv
+
+	for l in (command ls -a)
+		switch $l
+			case .
+				continue
+			case ..
+				continue
+		end
+		set -l path (echo (pwd)/$l | sed "s|$SYNC||")
+		if test -d $l
+			if ls $l | grep __make_dir_link ^&1 > /dev/null
+				set -l dest (echo $path | rev | cut -d / -f 2- | rev)
+				mkLink (pwd)/$l $dest
+			else
+				mkDir $path
+				set -l pwd (pwd)
+				linkConfigurations $l
+				builtin cd $pwd
+			end
+		else if test -f $l
+			mkLink $path
+		end
+	end
+end
+
+
+
+linkConfigurations $SYNC
+

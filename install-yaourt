@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+pacman -S wget --noconfirm
+PKG_QRY=package-query
+AUR=http://aur.archlinux.org/packages
+wget $AUR/pa/$PKG_QRY/$PKG_QRY.tar.gz $AUR/ya/yaourt/yaourt.tar.gz
+tar xaf package-query.tar.gz
+tar xaf yaourt.tar.gz
+
+cd package-query
+makepkg -s
+pacman -U `find -name "package-query*.xz"`
+cd
+cd yaourt
+makepkg -s
+pacman -U `find -name "yaourt*.xz"`
+cd
+
+rm -r package-query* yaourt*
