@@ -7,7 +7,11 @@ CFG=$HOME/.config
 SHELL=/user/bin/fish
 
 # Locale
-echo en_US.UTF-8 UTF-8\nde_DE.UTF-8 UTF-8\nfr_FR.UTF-8\nnb_NO.UTF-8 UTF-8 >> /etc/locale.gen
+echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
+echo de_DE.UTF-8 UTF-8 >> /etc/locale.gen
+echo fr_FR.UTF-8 UTF-8 >> /etc/locale.gen
+echo nb_NO.UTF-8 UTF-8 >> /etc/locale.gen
+
 locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 
